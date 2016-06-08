@@ -2,12 +2,38 @@
 html{
 	font-size: 16px;
 }
+
 .boardspace {
-	width: 1rem;
-	height: 1rem;
-	/*background: purple;
-	padding-bottom: 30%;
+	margin: .2rem;
+	width: 5rem;
+	height: 5rem;
+	background: pink;
+	position: absolute;
+	top: 0;
+	left: 0;
+	/*padding-bottom: 30%;*/
 	float: left;
-	margin: 1.66%;
 	border-radius: 15%;*/
+}
+.boardspace2 {
+	margin: .2rem;
+	width: 5rem;
+	height: 5rem;
+	background: pink;
+	position: absolute;
+	top: 0;
+	left: 5.34rem;
+	/*padding-bottom: 30%;*/
+	float: left;
+	border-radius: 15%;*/
+}
+
+
+.container {
+	margin: 1rem auto;
+	width: 60rem;
+	height: 60rem;
+	max-width: 1000px; 
+	position: relative;
+	border: 1px solid orange;
 }
