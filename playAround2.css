@@ -7,6 +7,10 @@ html{
 	font-size: 16px;
 }
 
+.wordList{
+	display: none;
+}
+
 .boardspace {
 	/*Look and Feel of Board Space*/
 	margin: .2rem;
