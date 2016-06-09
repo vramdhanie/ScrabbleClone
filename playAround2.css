@@ -1,39 +1,62 @@
 
+/**{
+	border: 2px solid red;
+}*/
+
 html{
 	font-size: 16px;
 }
 
 .boardspace {
+	/*Look and Feel of Board Space*/
 	margin: .2rem;
 	width: 5rem;
 	height: 5rem;
-	background: pink;
+	background: #9AD58E;
 	position: absolute;
-	top: 0;
-	left: 0;
-	/*padding-bottom: 30%;*/
-	float: left;
-	border-radius: 15%;*/
+	border-radius: 15%;
 }
+
+
 .boardspace2 {
+	/*Look and Feel of Board Space*/
 	margin: .2rem;
 	width: 5rem;
 	height: 5rem;
 	background: pink;
 	position: absolute;
+	border-radius: 15%;
+
+	/*Other 
+	dynamic information*/
 	top: 0;
-	left: 5.34rem;
-	/*padding-bottom: 30%;*/
-	float: left;
-	border-radius: 15%;*/
+	left: 5.4rem;
 }
+
+.boardspace3 {
+	/*Look and Feel of Board Space*/
+	margin: .2rem;
+	width: 5rem;
+	height: 5rem;
+	background: pink;
+	position: absolute;
+	border-radius: 15%;
+
+	/*Other 
+	dynamic information*/
+	top: 0;
+	left: 10.8rem;
+}
+
+
 
 
 .container {
 	margin: 1rem auto;
-	width: 60rem;
-	height: 60rem;
-	max-width: 1000px; 
+	width: 64.8rem;
+	height: 64.8rem;
+	max-width: 65rem ; 
 	position: relative;
 	border: 1px solid orange;
+	background: #408E2F;
 }
