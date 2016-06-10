@@ -1,7 +1,7 @@
 
-/**{
+*{
 	border: 2px solid red;
-}*/
+}
 
 html{
 	font-size: 16px;
@@ -63,4 +63,8 @@ html{
 	position: relative;
 	border: 1px solid orange;
 	background: #408E2F;
+}
+
+.form{
+	font-size: 2em;
 }
