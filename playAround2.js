@@ -6,6 +6,7 @@ var tileList = [];
 var playedWord ="";
 var consonants = "bcdfghjklmnpqrstvwxyz";
 var vowels = "aeiou";
+var selectedTileobject;
 
 //Go ahead and start getting the large file ASAP
 createwordArray();
@@ -63,8 +64,11 @@ $(".tileArea").click(function(event) {
   	//console.log("relX : " + relX + " Y:  " + relY);
 
   	for(var i=0; i < 30; i++){
-  		isIntersecting
-		if(tileList[i].played ==0){
+  		
+		if(isIntersectingsquare(relX, relY, tileList[i].xVal, tileList[i].yVal, 5.4*htmlFontsize)){
+            selectedTileobject = i;
+            alert("Tile Pressed " + i);
+
 		}
 	}
   	//Determine which tile has been selected
@@ -342,14 +346,14 @@ function createwordArray(){
     }); 
 }
 
-function isIntersecting(pntX, pntY, squareX,squareY, width) {
+function isIntersectingsquare(pntX, pntY, squareX,squareY, width) {
 
-	if (PositionX < RandomTileList[k].OnBoardPositionX + 30){
-		if (PositionY > RandomTileList[k].OnBoardPositionY)
-                            {}
-                                if (PositionY < RandomTileList[k].OnBoardPositionY + 30)
-                                {}
-    }                
+	if ((pntX > squareX)&&(pntX<squareX+width)){
+		if ((pntY<squareY+width)&&(pntY>squareY)){
+            return 1;
+        }                     
+    }
+    return 0;                
 }
 
 
