@@ -42,6 +42,39 @@ $( ".form" ).click(function() {
 });
 
 
+$(".container").mouseup(function(event) {
+    		// console.log("mouseup on " +  $(d).css("left") + " " + $(d).css("top"));
+	
+	//console.log("Mouse up"); 
+	console.log("client X: " + event.clientX + " Y:  " + event.clientY); 	
+	var x = event.pageX - $(".container").offset().left;
+  	var y = event.pageY - $(".container").offset().top;	
+  	console.log("relX : " + x + " Y:  " + y);
+
+});
+
+$(".tileArea").mouseup(function(event) {
+    		// console.log("mouseup on " +  $(d).css("left") + " " + $(d).css("top"));
+	
+	//console.log("Mouse up"); 
+	console.log("client X: " + event.clientX + " Y:  " + event.clientY); 	
+	var x = event.pageX - $(".tileArea").offset().left;
+  	var y = event.pageY - $(".tileArea").offset().top;	
+  	console.log("relX : " + x + " Y:  " + y);
+  	
+});
+
+
+
+
+
+//Event Listners
+//Event Listners
+//Event Listners
+//Event Listners
+
+
+
 
 //Methods
 //Methods
@@ -92,6 +125,10 @@ function createBoardspaces(){
             $(d).css("top", realY);
             $(d).addClass("onboardFormat");
             $(d).addClass("boardspace");
+
+     //        $(d).mouseup(function() {
+    	// 	console.log("mouseup on " +  $(d).css("left") + " " + $(d).css("top"));
+  			// });
 
             //deterermine if bonus and format
             var ranVal = getRandomArbitrary(0, 100);
@@ -301,6 +338,7 @@ function createwordArray(){
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
 }
+
 
 // in order to work 'Math.seed' must NOT be undefined,
 // so in any case, you HAVE to provide a Math.seed
