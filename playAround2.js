@@ -1,17 +1,30 @@
+Math.seedrandom();
 const htmlFontsize = 10; //usse this to handle 
 var wordArray = [];
 var playedWord ="apple";
 var gameBoard = [];
+var tileList = [];
+var consonants = "bcdfghjklmnpqrstvwxyz";
+var vowels = "aeiou";
 
 //Go ahead and start getting the large file ASAP
-getFile();
+createwordArray();
 
 $(document).ready(function() {
     createBoardspaces();
+    createTilelist();
 });//end of .ready
 
 
-//When the "p" is clicked check whatever word is in the box and change the text box color
+
+
+
+
+//Event Listners
+//Event Listners
+//Event Listners
+//Event Listners
+//When the "p" is clicked check whatever word is in the box and change the text box color - Tester
 $( ".form" ).click(function() {
     var found = 0;
     for(i = 0; i < wordArray.length; i++){
@@ -28,6 +41,12 @@ $( ".form" ).click(function() {
 });
 
 
+
+//Methods
+//Methods
+//Methods
+//Methods
+//Methods
 function createBoardspaces(){
 
     // Create Spaces that go on the board, logical plus styling aspects
@@ -36,33 +55,184 @@ function createBoardspaces(){
             //Draw Main Play Board here
             //Since One Time Deal, will leave here instead of 'draw' function
             d = document.createElement('div');
+            var space = new Object();
+
             var logicalX = j;
             var realX = j*5.4*htmlFontsize;
             var logicalY = n;
             var realY = n*5.4*htmlFontsize;
-            $(d).css("left", realX);
-            $(d).css("top", realY);
-            $(d).addClass("boardspace");
-            $(d).appendTo($(".container"));
 
-            //Create the Game board Objects
-            var space = new Object();
             space.xVal = logicalX;
             space.yVal = logicalY;
             space.letterVal = "";
-            space.bonus = "none";
+            space.locked = 0;
+
+            $(d).css("left", realX);
+            $(d).css("top", realY);
+            $(d).addClass("onboardFormat");
+            $(d).addClass("boardspace");
+
+            //deterermine if bonus and format
+            var ranVal = getRandomArbitrary(0, 100);
+
+            if(ranVal < 60){
+                space.bonus = "none";
+                $(d).text("  ");
+            }
+
+            if((ranVal>60)&&(ranVal<70)){
+                 space.bonus = "TW";
+                 $(d).text("TW");
+                 $(d).addClass("tw");
+            }
+
+            if((ranVal>70)&&(ranVal<80)){
+                 space.bonus = "DW";
+                 $(d).text("DW");
+                 $(d).addClass("dw");                
+            }
+
+            if((ranVal>80)&&(ranVal<90)){
+                 space.bonus = "DL";
+                 $(d).text("DL");
+                 $(d).addClass("dl");
+            }
+
+            if((ranVal>90)&&(ranVal<100)){
+                 space.bonus = "TL";
+                 $(d).text("TL");
+                 $(d).addClass("tl");
+            }
+
+            //Push the look to the DOM
+            $(d).appendTo($(".container"));
+            //Push the logical to memory
             gameBoard.push(space);
         }            
 }
 //  
-// End of create tiles functinoality
+// End of create tiles loop
 
+}
+
+
+
+function createTilelist(){
+
+var ranVal; 
+
+    for(var i =0; i < 10; i++){
+        var tile = new Object();
+        ranVal = getRandomArbitrary(0, 5);
+        tile.value = vowels.charAt(ranVal);
+        tileList.push(tile);
+    }
+
+    for(var k = 10; i < 30; i++){
+        var tile = new Object();
+        ranVal = getRandomArbitrary(0, 21)
+        tile.value = consonants.charAt(ranVal);
+        tileList.push(tile);
+    }
+
+    // for(var j=0; j < 30; j++){
+    //     console.log(tileList[j].value);
+    // }
+
+}
+
+function returnPointvalue(letter){
+
+    if(letter=='a'){
+        return 1;
+    }
+
+    if(letter=='b'){
+        return 3;
+    }
+
+    if(letter=='c'){
+        return 3;
+    }
+
+    if(letter=='d'){
+        return 2;
+    }
+
+    if(letter=='e'){
+        return 1;
+    }
+
+    if(letter=='f'){
+        return 4;
+    }
+
+    if(letter=='g'){
+        return 2;
+    }
+    if(letter=='h'){
+        return 4;
+    }
+    if(letter=='i'){
+        return 1;
+    }
+    if(letter=='j'){
+        return
+    }
+    if(letter=='k'){
+        return 5;
+    }
+    if(letter=='l'){
+        return 1;
+    }
+    if(letter=='m'){
+        return 4;
+    }
+    if(letter=='n'){
+        return 1;
+    }
+    if(letter=='o'){
+        return 1;
+    }
+    if(letter=='p'){
+        return 3;
+    }
+    if(letter=='q'){
+        return 10;
+    }
+    if(letter=='r'){
+        return 1;
+    }
+    if(letter=='s'){
+        return 1;
+    }
+    if(letter=='t'){
+        return 1;
+    }
+    if(letter=='u'){
+       return 1;
+    }
+    if(letter=='v'){
+       return 4;
+    }
+    if(letter=='w'){
+        return 4;
+    }
+    if(letter=='x'){
+        return 8; 
+    }
+    if(letter=='y'){
+        return 4;
+    }
+    if(letter=='z'){
+        return 10;
+    }
 
 
 }
 
 //function that gets the checker file form the server and loads it in memory inside wordArray 
-function getFile(){
+function createwordArray(){
     var file = "./wordsEn.txt";
     $.get(file,function(txt){
        
@@ -77,3 +247,20 @@ function getFile(){
 
     }); 
 }
+
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+// in order to work 'Math.seed' must NOT be undefined,
+// so in any case, you HAVE to provide a Math.seed
+// Math.seededRandom = function(max, min) {
+//     max = max || 1;
+//     min = min || 0;
+ 
+//     Math.seed = (Math.seed * 9301 + 49297) % 233280;
+//     var rnd = Math.seed / 233280;
+ 
+//     return min + rnd * (max - min);
+// }
+// http://indiegamr.com/generate-repeatable-random-numbers-in-js/

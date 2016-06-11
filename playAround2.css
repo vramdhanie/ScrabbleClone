@@ -16,44 +16,50 @@ html{
 	margin: .2rem;
 	width: 5rem;
 	height: 5rem;
-	background: #9AD58E;
+	background: #B67B2D;
 	position: absolute;
 	border-radius: 15%;
 }
 
+.onboardFormat{
+	letter-spacing: 2px;
+	text-align: center;
+	line-height: 5rem;
+	font-size: 1.8rem;
+	text-shadow: .0625rem .0625rem;
+}
 
-.boardspace2 {
-	/*Look and Feel of Board Space*/
-	margin: .2rem;
-	width: 5rem;
-	height: 5rem;
+.tw{
+	background: orange;
+
+}
+
+.dw{
 	background: pink;
-	position: absolute;
-	border-radius: 15%;
 
-	/*Other 
-	dynamic information*/
-	top: 0;
-	left: 5.4rem;
 }
 
-.boardspace3 {
-	/*Look and Feel of Board Space*/
-	margin: .2rem;
-	width: 5rem;
-	height: 5rem;
-	background: pink;
-	position: absolute;
-	border-radius: 15%;
-
-	/*Other 
-	dynamic information*/
-	top: 0;
-	left: 10.8rem;
+.dl{
+	background: blue;
+	
 }
 
+.tl{
+	background: purple;
 
+}
 
+.tileNatural{
+
+}
+.tilePlayed{
+
+}
+
+.tileWrong{
+
+}
+    
 
 .container {
 	/*margin: 1rem auto;*/
@@ -63,7 +69,19 @@ html{
 	max-width: 65rem ; 
 	position: relative;
 	border: 1px solid orange;
-	background: #408E2F;
+	background: #704000;
+}
+
+.tileArea {
+	/*margin: 1rem auto;*/
+	float: left;
+	width: 50rem;
+	height: 20rem;
+	max-width: 65rem ; 
+	position: relative;
+	border: 1px solid orange;
+	background: gray;
+	margin-left: 5rem;
 }
 
 .form{
