@@ -1,9 +1,9 @@
-Math.seedrandom();
+Math.seedrandom(0228);
 const htmlFontsize = 10; //usse this to handle 
 var wordArray = [];
-var playedWord ="apple";
 var gameBoard = [];
 var tileList = [];
+var playedWord ="";
 var consonants = "bcdfghjklmnpqrstvwxyz";
 var vowels = "aeiou";
 
@@ -13,6 +13,7 @@ createwordArray();
 $(document).ready(function() {
     createBoardspaces();
     createTilelist();
+    drawGamecomponents();
 });//end of .ready
 
 
@@ -47,6 +48,26 @@ $( ".form" ).click(function() {
 //Methods
 //Methods
 //Methods
+function drawGamecomponents(){
+
+	for(var i=0; i < 30; i++){
+		if(tileList[i].played ==0){
+			d = document.createElement('div');
+			$(d).css("left", tileList[i].realX);
+            $(d).css("top", tileList[i].realY);
+            $(d).text(tileList[i].value);
+            $(d).addClass("onboardFormat");
+            $(d).addClass("boardspace");
+            $(d).addClass("tileNatural");
+            $(d).appendTo($(".tileArea"));
+
+		}
+        console.log(tileList[i].value);
+    }
+
+}
+
+
 function createBoardspaces(){
 
     // Create Spaces that go on the board, logical plus styling aspects
@@ -121,19 +142,48 @@ function createTilelist(){
 
 var ranVal; 
 
-    for(var i =0; i < 10; i++){
-        var tile = new Object();
-        ranVal = getRandomArbitrary(0, 5);
-        tile.value = vowels.charAt(ranVal);
-        tileList.push(tile);
+    for (var n = 0; n <= 3; n++){
+
+        for (var j = 0; j <= 9; j++){
+
+        	var tile = new Object();
+
+        	tile.logicalX = j;
+            tile.realX = j*5.4*htmlFontsize;
+            tile.logicalY = n;
+            tile.realY = n*5.4*htmlFontsize;
+            tile.played = 0;
+            tile.selected = 0;
+
+
+        	if(n==0){
+        		ranVal = getRandomArbitrary(0, 5);
+        		tile.value = vowels.charAt(ranVal);
+        	}else{
+        		ranVal = getRandomArbitrary(0, 21);
+        		tile.value = consonants.charAt(ranVal);
+        	}
+        	tileList.push(tile);
+
+        }
+            //Draw Main Play Board here
     }
 
-    for(var k = 10; i < 30; i++){
-        var tile = new Object();
-        ranVal = getRandomArbitrary(0, 21)
-        tile.value = consonants.charAt(ranVal);
-        tileList.push(tile);
-    }
+
+
+    // for(var i =0; i < 10; i++){
+    //     var tile = new Object();
+    //     ranVal = getRandomArbitrary(0, 5);
+    //     tile.value = vowels.charAt(ranVal);
+    //     
+    // }
+
+    // for(var k = 10; i < 30; i++){
+    //     var tile = new Object();
+    //     ranVal = getRandomArbitrary(0, 21);
+    //     tile.value = consonants.charAt(ranVal);
+    //     tileList.push(tile);
+    // }
 
     // for(var j=0; j < 30; j++){
     //     console.log(tileList[j].value);

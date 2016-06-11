@@ -50,7 +50,8 @@ html{
 }
 
 .tileNatural{
-
+	background: yellow;
+	text-transform: capitalize;
 }
 .tilePlayed{
 
@@ -75,13 +76,13 @@ html{
 .tileArea {
 	/*margin: 1rem auto;*/
 	float: left;
-	width: 50rem;
-	height: 20rem;
+	width: 54rem;
+	height: 16.2rem;
 	max-width: 65rem ; 
 	position: relative;
 	border: 1px solid orange;
 	background: gray;
-	margin-left: 5rem;
+	margin-left: 5.5rem;
 }
 
 .form{
