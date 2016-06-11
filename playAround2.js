@@ -53,14 +53,23 @@ $(".container").mouseup(function(event) {
 
 });
 
-$(".tileArea").mouseup(function(event) {
+$(".tileArea").click(function(event) {
     		// console.log("mouseup on " +  $(d).css("left") + " " + $(d).css("top"));
 	
-	//console.log("Mouse up"); 
-	console.log("client X: " + event.clientX + " Y:  " + event.clientY); 	
-	var x = event.pageX - $(".tileArea").offset().left;
-  	var y = event.pageY - $(".tileArea").offset().top;	
-  	console.log("relX : " + x + " Y:  " + y);
+	//console.log("Tile Area Clicked"); 
+	//console.log("client X: " + event.clientX + " Y:  " + event.clientY); 	
+	var relX = event.pageX - $(".tileArea").offset().left;
+  	var relY = event.pageY - $(".tileArea").offset().top;	
+  	//console.log("relX : " + relX + " Y:  " + relY);
+
+  	for(var i=0; i < 30; i++){
+  		isIntersecting
+		if(tileList[i].played ==0){
+		}
+	}
+  	//Determine which tile has been selected
+
+
   	
 });
 
@@ -68,11 +77,10 @@ $(".tileArea").mouseup(function(event) {
 
 
 
-//Event Listners
-//Event Listners
-//Event Listners
-//Event Listners
-
+//End Event Listners
+//End Event Listners
+//End Event Listners
+//End Event Listners
 
 
 
@@ -93,7 +101,6 @@ function drawGamecomponents(){
             $(d).addClass("boardspace");
             $(d).addClass("tileNatural");
             $(d).appendTo($(".tileArea"));
-
 		}
         console.log(tileList[i].value);
     }
@@ -334,6 +341,17 @@ function createwordArray(){
 
     }); 
 }
+
+function isIntersecting(pntX, pntY, squareX,squareY, width) {
+
+	if (PositionX < RandomTileList[k].OnBoardPositionX + 30){
+		if (PositionY > RandomTileList[k].OnBoardPositionY)
+                            {}
+                                if (PositionY < RandomTileList[k].OnBoardPositionY + 30)
+                                {}
+    }                
+}
+
 
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;

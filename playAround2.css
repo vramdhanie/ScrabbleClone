@@ -76,7 +76,7 @@ html{
 .tileArea {
 	/*margin: 1rem auto;*/
 	float: left;
-	width: 54rem;
+	width: 59.3rem;
 	height: 16.2rem;
 	max-width: 65rem ; 
 	position: relative;
@@ -84,6 +84,18 @@ html{
 	background: gray;
 	margin-left: 5.5rem;
 }
+
+.checkBtn{
+	/*float: right;*/
+	background-color: cyan;
+	width: 4.8rem;
+	height: 15rem;
+	top: 0;
+	left: 54rem;
+	margin-top: .6rem;
+
+}
+
 
 .form{
 	font-size: 3em;
