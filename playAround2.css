@@ -52,6 +52,7 @@ html{
 .tileNatural{
 	background: yellow;
 	text-transform: capitalize;
+	border: 1px solid green;
 }
 .tilePlayed{
 

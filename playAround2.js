@@ -29,17 +29,17 @@ $(document).ready(function() {
 
 // function drawGamecomponents(){
 
-// 	for(var i=0; i < 30; i++){
-// 		if(tileList[i].played ==0){//Only display tiles that have not been played here
-// 			d = document.createElement('div');
-// 			$(d).css("left", tileList[i].homeX);
+//  for(var i=0; i < 30; i++){
+//      if(tileList[i].played ==0){//Only display tiles that have not been played here
+//          d = document.createElement('div');
+//          $(d).css("left", tileList[i].homeX);
 //             $(d).css("top", tileList[i].homeY);
 //             $(d).text(tileList[i].value);
 //             $(d).addClass("onboardFormat");
 //             $(d).addClass("boardspace");
 //             $(d).addClass("tileNatural");
 //             $(d).appendTo($(".tileArea"));
-// 		}
+//      }
 //         console.log(tileList[i].value);
 //     }
 
@@ -118,7 +118,7 @@ var ranVal;
 
         for (var j = 0; j <= 9; j++){
 
-        	var tile = new Object();
+            var tile = new Object();
       
             tile.homeX = Math.floor(j*5.4*htmlFontsize);
             tile.homeY = Math.floor(n*5.4*htmlFontsize);
@@ -128,18 +128,19 @@ var ranVal;
             tile.selected = 0;
 
             //get ten vowels and twenty consonants 
-        	if(n==0){
-        		ranVal = getRandomArbitrary(0, 5);
-        		tile.value = vowels.charAt(ranVal);
-        	}else{
-        		ranVal = getRandomArbitrary(0, 21);
-        		tile.value = consonants.charAt(ranVal);
-        	}
-        	tileList.push(tile);
+            if(n==0){
+                ranVal = getRandomArbitrary(0, 5);
+                tile.value = vowels.charAt(ranVal);
+            }else{
+                ranVal = getRandomArbitrary(0, 21);
+                tile.value = consonants.charAt(ranVal);
+            }
+            tileList.push(tile);
 
             d = document.createElement('div');
             $(d).css("left", tile.homeX);
             $(d).css("top", tile.homeY);
+            $(d).css("transform", "scale(1,1)");
             $(d).text(tile.value);
             $(d).addClass("onboardFormat");
             $(d).addClass("boardspace");
@@ -161,10 +162,25 @@ function createwordArray(){
         }
     }); 
 }
+
+//Return the index, works for tiles or gameBoard 
+function getId(type, xVal, yVal){
+    //console.log("Finding X: " + xVal + " Y: " + yVal);
+    if(type==="tile"){
+    //Find Object in Memory
+        for(var i=0; i < tileList.length; i++){
+            if((xVal==tileList[i].realX)&&(yVal == tileList[i].realY)){
+                return i;
+            }
+        }
+    }
+    console.log("XValue: " + xVal + " YValue: " + yVal);
+    alert("Something isn't right");
+}
 //function that determins if a point (touch or mouseclick) is within a particular square
 function isIntersectingsquare(pntX, pntY, squareX,squareY, width) {
-	if ((pntX > squareX)&&(pntX<squareX+width)){
-		if ((pntY<squareY+width)&&(pntY>squareY)){
+    if ((pntX > squareX)&&(pntX<squareX+width)){
+        if ((pntY<squareY+width)&&(pntY>squareY)){
             return 1;
         }                     
     }
@@ -307,17 +323,55 @@ $(".container").click(function(event) {//Should be mouseup when building the res
 
 });
 
-
+//Determine which tile has been selected
 $(".tileNatural").click(function(event) {
             // console.log("mouseup on " +  $(d).css("left") + " " + $(d).css("top"));
     
     //console.log("Tile Area Clicked"); 
     //console.log("client X: " + event.clientX + " Y:  " + event.clientY);  
-    var relX = event.pageX - $(".tileArea").offset().left;
-    var relY = event.pageY - $(".tileArea").offset().top;   
+    // var relX = event.pageX - $(".tileArea").offset().left;
+    // var relY = event.pageY - $(".tileArea").offset().top;   
+    
     //console.log("relX : " + relX + " Y:  " + relY);
-    console.log("Selected " + Math.round($(this).position().left) + " " + Math.round($(this).position().top));
-    //Determine which tile has been selected
+    console.log("scale value: " + $(this).css("transform")[7]);
+
+    if($(this).css("transform")[7] === 2){return false;}
+
+    var activeX = Math.round($(this).position().left); 
+    var activeY = Math.round($(this).position().top); 
+    var memId= getId("tile", activeX, activeY);
+
+   //Handle Formating first so the sizes are right when comparing next input
+    $( ".tileNatural" ).each(function( index ) {
+        if((activeX === Math.round($(this).position().left))&&(activeY === Math.round($(this).position().top))){
+            $(this).css("transform", "scale(2,2)");
+        }else{
+            $(this).css("transform", "scale(1,1)");
+        }
+    });
+
+    //Handle Object
+    for(var i = 0; i < tileList.length; i++){
+        if(i != memId){
+           tileList[i].selected = 0;
+        }else{
+           tileList[i].selected = 1;
+        }
+    }
+
+ 
+        // for(var i = 0; i < tileList.length; i++){
+        // if(i != memId){
+        //     $(this).css("transform", "scale(1,1)");
+        // }else{
+        //     $(this).css("transform", "scale(2,2)");
+        // }
+   // }
+
+
+
+    
+    
 });
 //End Event Listners
 //End Event Listners
