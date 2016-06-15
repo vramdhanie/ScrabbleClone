@@ -7,11 +7,9 @@ html{
 	font-size: 10px;
 }
 
-.wordList{
-	display: none;
-}
+.gameSpaces{}
 
-.boardspace {
+.onboardvisFormat {
 	/*Look and Feel of Board Space*/
 	margin: .2rem;
 	width: 5rem;
@@ -21,7 +19,7 @@ html{
 	border-radius: 15%;
 }
 
-.onboardFormat{
+.onboardtextFormat{
 	letter-spacing: 2px;
 	text-align: center;
 	line-height: 5rem;
@@ -53,6 +51,7 @@ html{
 	background: yellow;
 	text-transform: capitalize;
 	border: 1px solid green;
+	position: absolute;
 }
 .tilePlayed{
 
@@ -94,7 +93,6 @@ html{
 	top: 0;
 	left: 54rem;
 	margin-top: .6rem;
-
 }
 
 

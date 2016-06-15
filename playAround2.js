@@ -64,8 +64,12 @@ function createBoardspaces(){
 
             $(d).css("left",  space.homeX);
             $(d).css("top",  space.homeY);
-            $(d).addClass("onboardFormat");
-            $(d).addClass("boardspace");
+            $(d).addClass("gameSpaces");
+            $(d).addClass("onboardtextFormat");
+            $(d).addClass("onboardvisFormat");
+            $(d).addClass("gameSpaces");
+
+            
 
             var ranVal = getRandomArbitrary(0, 100);
 
@@ -138,13 +142,18 @@ var ranVal;
             tileList.push(tile);
 
             d = document.createElement('div');
+
+            $(d).draggable({ snap: ".gameSpaces" });
+            $(d).draggable().css("position", "absolute");
+
             $(d).css("left", tile.homeX);
             $(d).css("top", tile.homeY);
             $(d).css("transform", "scale(1,1)");
             $(d).text(tile.value);
-            $(d).addClass("onboardFormat");
-            $(d).addClass("boardspace");
+            $(d).addClass("onboardtextFormat");
+            $(d).addClass("onboardvisFormat");
             $(d).addClass("tileNatural");
+            
             $(d).appendTo($(".tileArea"));
   
         }
@@ -335,7 +344,7 @@ $(".tileNatural").click(function(event) {
     //console.log("relX : " + relX + " Y:  " + relY);
     console.log("scale value: " + $(this).css("transform")[7]);
 
-    if($(this).css("transform")[7] === 2){return false;}
+    if($(this).css("transform")[7] == 2){return false;}
 
     var activeX = Math.round($(this).position().left); 
     var activeY = Math.round($(this).position().top); 
