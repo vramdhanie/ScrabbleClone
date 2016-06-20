@@ -355,7 +355,7 @@ $(".tileNatural").draggable({
 
     // Find position where image is dropped.
     stop: function(event, ui) {
-
+        clickedTile = this;
         // Show dropped position.
         
         var mouseX = event.pageX - $(".container").offset().left;
@@ -369,15 +369,28 @@ $(".tileNatural").draggable({
         //console.log("relX : " + mouseX + " Y:  " + mouseY + "Left Container: " + parseInt($(".container").css("left")) + " Top Container: " + parseInt($(".container").css("top")) + " Width: " + parseInt($(".container").css("width")));
         //console.log("boardWidth " + boardWidth)
 
-        
+
         if(isIntersectingsquare(mouseX, mouseY, parseInt($(".container").css("left")),  parseInt($(".container").css("top")) , parseInt($(".container").css("width")))){
             //Tile dropped over the board
 
             //iterate over .gameSpaces
             $( ".gameSpaces" ).each(function( index ) {
-                console.log(index + ": " + $( this ).text() );
+                var gameSpace = this; 
+                //console.log(index + ": " + $( this ).text() );
+                if(isIntersectingsquare(mouseX, mouseY, parseInt($(gameSpace).css("left")),  parseInt($(".container").css("top")) , parseInt($(".container").css("width")))){
+
+                }
+                //see which one is in question with isIntersecting(mouseX, mouseY, $(gameSpace).css("left"), top, width )
+                //if in question
+                    //Determine what is happening in this tile
+                        //if nothing 
+                            //place tile by doing....... 
+
+                        //if something determine what and send home 
+
+
             });
-            //see which one is in question with isIntersecting(mouseX, mouseY, gamespace[i]  )
+            
 
 
             console.log("In Game Board");
@@ -386,8 +399,8 @@ $(".tileNatural").draggable({
 
 
         }else{//Tile dropped over location not on board
-            $(this).css("left", $(this).data("homeX")); //change to home locationX
-            $(this).css("top", $(this).data("homeY")); //change to home locationY
+            $(clickedTile).css("left", $(clickedTile).data("homeX")); //change to home locationX
+            $(clickedTile).css("top", $(clickedTile).data("homeY")); //change to home locationY
             console.log("NOT - In Game Board");
         }
 
