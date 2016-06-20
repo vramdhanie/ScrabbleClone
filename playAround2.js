@@ -143,7 +143,30 @@ var ranVal;
 
             d = document.createElement('div');
 
-            $(d).draggable({ snap: ".gameSpaces" });
+            //$(d).draggable({ snap: ".gameSpaces" });
+
+// Make images draggable.
+$("d").draggable({
+
+    // Find original position of dragged image.
+
+    start: function(event, ui) {
+
+        // Show start dragged position of image.
+        var Startpos = $(d).position();
+        console.log("START: \nLeft: "+ Startpos.left + "\nTop: " + Startpos.top);
+    },
+
+    // Find position where image is dropped.
+    stop: function(event, ui) {
+
+        // Show dropped position.
+        var Stoppos = $(d).position();
+        console.log("STOP: \nLeft: "+ Stoppos.left + "\nTop: " + Stoppos.top);
+    }
+});
+
+
             $(d).draggable().css("position", "absolute");
 
             $(d).css("left", tile.homeX);
@@ -332,56 +355,81 @@ $(".container").click(function(event) {//Should be mouseup when building the res
 
 });
 
-//Determine which tile has been selected
-$(".tileNatural").click(function(event) {
-            // console.log("mouseup on " +  $(d).css("left") + " " + $(d).css("top"));
-    
-    //console.log("Tile Area Clicked"); 
-    //console.log("client X: " + event.clientX + " Y:  " + event.clientY);  
-    // var relX = event.pageX - $(".tileArea").offset().left;
-    // var relY = event.pageY - $(".tileArea").offset().top;   
-    
-    //console.log("relX : " + relX + " Y:  " + relY);
-    console.log("scale value: " + $(this).css("transform")[7]);
+// Make images draggable.
+$(".tileNatural").draggable({
 
-    if($(this).css("transform")[7] == 2){return false;}
+    // Find original position of dragged image.
 
-    var activeX = Math.round($(this).position().left); 
-    var activeY = Math.round($(this).position().top); 
-    var memId= getId("tile", activeX, activeY);
+    start: function(event, ui) {
 
-   //Handle Formating first so the sizes are right when comparing next input
-    $( ".tileNatural" ).each(function( index ) {
-        if((activeX === Math.round($(this).position().left))&&(activeY === Math.round($(this).position().top))){
-            $(this).css("transform", "scale(2,2)");
-        }else{
-            $(this).css("transform", "scale(1,1)");
-        }
-    });
+        // Show start dragged position of image.
+        var Startpos = $(this).offset();
+        //console.log("START: \nLeft: "+ Startpos.left + "\nTop: " + Startpos.top);
+        console.log("Start Mouse: \nLeft: "+ event.pageX + "\nTop: " + event.pageY);
+    },
 
-    //Handle Object
-    for(var i = 0; i < tileList.length; i++){
-        if(i != memId){
-           tileList[i].selected = 0;
-        }else{
-           tileList[i].selected = 1;
-        }
+    // Find position where image is dropped.
+    stop: function(event, ui) {
+
+        // Show dropped position.
+        var Stoppos = $(this).offset();
+        //console.log("STOP: \nLeft: "+ Stoppos.left + "\nTop: " + Stoppos.top);
+        console.log("End Mouse: \nLeft: "+ event.pageX + "\nTop: " + event.pageY);
+        console.log("Container PosX: " + $(".container").css("left") + " " + "Container Width: " + $(".container").css("width"));
+
     }
+});
+
+//Determine which tile has been selected
+// $(".tileNatural").click(function(event) {
+//             // console.log("mouseup on " +  $(d).css("left") + " " + $(d).css("top"));
+    
+//     //console.log("Tile Area Clicked"); 
+//     //console.log("client X: " + event.clientX + " Y:  " + event.clientY);  
+//     // var relX = event.pageX - $(".tileArea").offset().left;
+//     // var relY = event.pageY - $(".tileArea").offset().top;   
+    
+//     //console.log("relX : " + relX + " Y:  " + relY);
+//     console.log("scale value: " + $(this).css("transform")[7]);
+
+//     if($(this).css("transform")[7] == 2){return false;}
+
+//     var activeX = Math.round($(this).position().left); 
+//     var activeY = Math.round($(this).position().top); 
+//     var memId= getId("tile", activeX, activeY);
+
+//    //Handle Formating first so the sizes are right when comparing next input
+//     $( ".tileNatural" ).each(function( index ) {
+//         if((activeX === Math.round($(this).position().left))&&(activeY === Math.round($(this).position().top))){
+//             $(this).css("transform", "scale(2,2)");
+//         }else{
+//             $(this).css("transform", "scale(1,1)");
+//         }
+//     });
+
+//     //Handle Object
+//     for(var i = 0; i < tileList.length; i++){
+//         if(i != memId){
+//            tileList[i].selected = 0;
+//         }else{
+//            tileList[i].selected = 1;
+//         }
+//     }
 
  
-        // for(var i = 0; i < tileList.length; i++){
-        // if(i != memId){
-        //     $(this).css("transform", "scale(1,1)");
-        // }else{
-        //     $(this).css("transform", "scale(2,2)");
-        // }
-   // }
+//         // for(var i = 0; i < tileList.length; i++){
+//         // if(i != memId){
+//         //     $(this).css("transform", "scale(1,1)");
+//         // }else{
+//         //     $(this).css("transform", "scale(2,2)");
+//         // }
+//    // }
 
 
 
     
     
-});
+// });
 //End Event Listners
 //End Event Listners
 //End Event Listners
