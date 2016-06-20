@@ -1,5 +1,8 @@
 Math.seedrandom(0228);
-const htmlFontsize = 10; //usse this to handle 
+const htmlFontsize = 10; //usse this to handle rem in js
+const tileWidth = 5.4*htmlFontsize; //usse this to handle 
+const boardWidth = 12.0*tileWidth;
+
 var wordArray = [];
 var gameBoard = [];
 var tileList = [];
@@ -124,8 +127,8 @@ var ranVal;
 
             var tile = new Object();
       
-            tile.homeX = Math.floor(j*5.4*htmlFontsize);
-            tile.homeY = Math.floor(n*5.4*htmlFontsize);
+            tile.startingX = Math.floor(j*5.4*htmlFontsize);
+            tile.startingY = Math.floor(n*5.4*htmlFontsize);
             tile.realX = tile.homeX;
             tile.realY = tile.homeY;
             tile.played = 0;
@@ -143,34 +146,16 @@ var ranVal;
 
             d = document.createElement('div');
 
-            //$(d).draggable({ snap: ".gameSpaces" });
-
-// Make images draggable.
-$("d").draggable({
-
-    // Find original position of dragged image.
-
-    start: function(event, ui) {
-
-        // Show start dragged position of image.
-        var Startpos = $(d).position();
-        console.log("START: \nLeft: "+ Startpos.left + "\nTop: " + Startpos.top);
-    },
-
-    // Find position where image is dropped.
-    stop: function(event, ui) {
-
-        // Show dropped position.
-        var Stoppos = $(d).position();
-        console.log("STOP: \nLeft: "+ Stoppos.left + "\nTop: " + Stoppos.top);
-    }
-});
-
-
             $(d).draggable().css("position", "absolute");
 
-            $(d).css("left", tile.homeX);
-            $(d).css("top", tile.homeY);
+            //physically let tile know where it first lives change left and top to change location later
+            $(d).css("left", tile.startingX);
+            $(d).css("top", tile.startingY);
+
+            //Let know where current home is so it can return there
+            $(d).data( "homeX", tile.startingX );
+            $(d).data( "homeY", tile.startingY );
+
             $(d).css("transform", "scale(1,1)");
             $(d).text(tile.value);
             $(d).addClass("onboardtextFormat");
@@ -348,7 +333,7 @@ $(".container").click(function(event) {//Should be mouseup when building the res
     //console.log("relX : " + relX + " Y:  " + relY);
 
     for(var i=0; i < gameBoard.length; i++){
-        if(isIntersectingsquare(relX, relY, gameBoard[i].homeX, gameBoard[i].homeY, 5.0*htmlFontsize)){
+        if(isIntersectingsquare(relX, relY, gameBoard[i].homeX, gameBoard[i].homeY, tileWidth)){
             console.log("Tile Pressed " + gameBoard[i].homeX + " " + gameBoard[i].homeY);
         }
     }
@@ -363,7 +348,7 @@ $(".tileNatural").draggable({
     start: function(event, ui) {
 
         // Show start dragged position of image.
-        var Startpos = $(this).offset();
+        //var Startpos = $(this).offset();
         //console.log("START: \nLeft: "+ Startpos.left + "\nTop: " + Startpos.top);
         console.log("Start Mouse: \nLeft: "+ event.pageX + "\nTop: " + event.pageY);
     },
@@ -372,10 +357,40 @@ $(".tileNatural").draggable({
     stop: function(event, ui) {
 
         // Show dropped position.
-        var Stoppos = $(this).offset();
+        
+        var mouseX = event.pageX - $(".container").offset().left;
+        var mouseY = event.pageY - $(".container").offset().top; 
+
+        //var Stoppos = $(this).offset();
         //console.log("STOP: \nLeft: "+ Stoppos.left + "\nTop: " + Stoppos.top);
-        console.log("End Mouse: \nLeft: "+ event.pageX + "\nTop: " + event.pageY);
-        console.log("Container PosX: " + $(".container").css("left") + " " + "Container Width: " + $(".container").css("width"));
+        //console.log("End Mouse: \nLeft: "+ event.pageX + "\nTop: " + event.pageY); //event.pageY - mouse y
+        //console.log("Container PosX: " + $(".container").css("left") + " " + "Container Width: " + $(".container").css("width"));
+        //$(".container").css("width") is subbing for 
+        //console.log("relX : " + mouseX + " Y:  " + mouseY + "Left Container: " + parseInt($(".container").css("left")) + " Top Container: " + parseInt($(".container").css("top")) + " Width: " + parseInt($(".container").css("width")));
+        //console.log("boardWidth " + boardWidth)
+
+        
+        if(isIntersectingsquare(mouseX, mouseY, parseInt($(".container").css("left")),  parseInt($(".container").css("top")) , parseInt($(".container").css("width")))){
+            //Tile dropped over the board
+
+            //iterate over .gameSpaces
+            $( ".gameSpaces" ).each(function( index ) {
+                console.log(index + ": " + $( this ).text() );
+            });
+            //see which one is in question with isIntersecting(mouseX, mouseY, gamespace[i]  )
+
+
+            console.log("In Game Board");
+
+
+
+
+        }else{//Tile dropped over location not on board
+            $(this).css("left", $(this).data("homeX")); //change to home locationX
+            $(this).css("top", $(this).data("homeY")); //change to home locationY
+            console.log("NOT - In Game Board");
+        }
+
 
     }
 });
