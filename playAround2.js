@@ -1,6 +1,6 @@
 Math.seedrandom(0228);
 const htmlFontsize = 10; //usse this to handle rem in js
-const tileWidth = 5.4*htmlFontsize; //usse this to handle 
+const tileWidth = 5.4*htmlFontsize; //usse this to handle
 const boardWidth = 12.0*tileWidth;
 
 var wordArray = [];
@@ -11,6 +11,35 @@ var consonants = "bcdfghjklmnpqrstvwxyz";
 var vowels = "aeiou";
 var selectedTileobject;
 
+var points = {
+    a:1,
+    b:3,
+    c:3,
+    d:2,
+    e:1,
+    f:4,
+    g:2,
+    h:4,
+    i:1,
+    j:8,
+    k:5,
+    l:1,
+    m:4,
+    n:1,
+    o:1,
+    p:3,
+    q:10,
+    r:1,
+    s:1,
+    t:1,
+    u:1,
+    v:4,
+    w:4,
+    x:8,
+    y:4,
+    z:10
+};
+
 //Go ahead and start getting the large file ASAP and setting up objects and DOM
 //need to do this first to make adding even listners less of a headache
 createwordArray();
@@ -19,8 +48,7 @@ createBoardspaces();
 
 
 $(document).ready(function() {
-    
-    //ready for update and draw here
+
 
 });//end of .ready
 
@@ -72,7 +100,7 @@ function createBoardspaces(){
             $(d).addClass("onboardvisFormat");
             $(d).addClass("gameSpaces");
 
-            
+
 
             var ranVal = getRandomArbitrary(0, 100);
 
@@ -90,7 +118,7 @@ function createBoardspaces(){
             if((ranVal>70)&&(ranVal<80)){
                  space.bonus = "DW";
                  $(d).text("DW");
-                 $(d).addClass("dw");                
+                 $(d).addClass("dw");
             }
 
             if((ranVal>80)&&(ranVal<90)){
@@ -105,13 +133,29 @@ function createBoardspaces(){
                  $(d).addClass("tl");
             }
 
+            $(d).droppable({
+                accept:'.tileNatural',
+                over:function(){
+                    $(this).addClass('gamespace_hover');
+                },
+                out: function(){
+                    $(this).removeClass('gamespace_hover');
+                },
+                drop: function(event, ui){
+                    console.log(ui);
+                }
+            });
+
             //Push the look to the DOM
             $(d).appendTo($(".container"));
+
+
+
             //Push the logical to memory
             gameBoard.push(space);
-        }            
+        }
 }
-//  
+//
 // End of create tiles loop
 
 }
@@ -119,14 +163,14 @@ function createBoardspaces(){
 //create tile objects for DOM and memory - initialization
 function createTilelist(){
 
-var ranVal; 
+var ranVal;
 
     for (var n = 0; n < 3; n++){
 
         for (var j = 0; j <= 9; j++){
 
             var tile = new Object();
-      
+
             tile.startingX = Math.floor(j*5.4*htmlFontsize);
             tile.startingY = Math.floor(n*5.4*htmlFontsize);
             tile.realX = tile.homeX;
@@ -134,7 +178,7 @@ var ranVal;
             tile.played = 0;
             tile.selected = 0;
 
-            //get ten vowels and twenty consonants 
+            //get ten vowels and twenty consonants
             if(n==0){
                 ranVal = getRandomArbitrary(0, 5);
                 tile.value = vowels.charAt(ranVal);
@@ -161,26 +205,31 @@ var ranVal;
             $(d).addClass("onboardtextFormat");
             $(d).addClass("onboardvisFormat");
             $(d).addClass("tileNatural");
-            
+
+            var v = document.createElement('span');
+            $(v).addClass('tilevalue');
+            $(v).text(2);
+            $(d).append($(v));
+
             $(d).appendTo($(".tileArea"));
-  
+
         }
             //Draw Main Play Board here
     }
 }
 
-//function that gets the checker file form the server and loads it in memory inside wordArray 
+//function that gets the checker file form the server and loads it in memory inside wordArray
 function createwordArray(){
     var file = "./wordsEn.txt";
-    $.get(file,function(txt){ 
+    $.get(file,function(txt){
         var lines = txt.split("\n");
         for (var i = 0, len = lines.length; i < len; i++) {
             wordArray[i]=lines[i];
         }
-    }); 
+    });
 }
 
-//Return the index, works for tiles or gameBoard 
+//Return the index, works for tiles or gameBoard
 function getId(type, xVal, yVal){
     //console.log("Finding X: " + xVal + " Y: " + yVal);
     if(type==="tile"){
@@ -199,9 +248,9 @@ function isIntersectingsquare(pntX, pntY, squareX,squareY, width) {
     if ((pntX > squareX)&&(pntX<squareX+width)){
         if ((pntY<squareY+width)&&(pntY>squareY)){
             return 1;
-        }                     
+        }
     }
-    return 0;                
+    return 0;
 }
 
 //rand number helper function
@@ -209,93 +258,9 @@ function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
 }
 
-//function that returns point value of a tile for scoring and formatting tiles 
+//function that returns point value of a tile for scoring and formatting tiles
 function returnPointvalue(letter){
-
-    if(letter=='a'){
-        return 1;
-    }
-
-    if(letter=='b'){
-        return 3;
-    }
-
-    if(letter=='c'){
-        return 3;
-    }
-
-    if(letter=='d'){
-        return 2;
-    }
-
-    if(letter=='e'){
-        return 1;
-    }
-
-    if(letter=='f'){
-        return 4;
-    }
-
-    if(letter=='g'){
-        return 2;
-    }
-    if(letter=='h'){
-        return 4;
-    }
-    if(letter=='i'){
-        return 1;
-    }
-    if(letter=='j'){
-        return
-    }
-    if(letter=='k'){
-        return 5;
-    }
-    if(letter=='l'){
-        return 1;
-    }
-    if(letter=='m'){
-        return 4;
-    }
-    if(letter=='n'){
-        return 1;
-    }
-    if(letter=='o'){
-        return 1;
-    }
-    if(letter=='p'){
-        return 3;
-    }
-    if(letter=='q'){
-        return 10;
-    }
-    if(letter=='r'){
-        return 1;
-    }
-    if(letter=='s'){
-        return 1;
-    }
-    if(letter=='t'){
-        return 1;
-    }
-    if(letter=='u'){
-       return 1;
-    }
-    if(letter=='v'){
-       return 4;
-    }
-    if(letter=='w'){
-        return 4;
-    }
-    if(letter=='x'){
-        return 8; 
-    }
-    if(letter=='y'){
-        return 4;
-    }
-    if(letter=='z'){
-        return 10;
-    }
+    return points[letter];
 }
 
 //END Methods
@@ -318,18 +283,18 @@ $( ".form" ).click(function() {
             found = 1;
             $(".tBox").css("background-color","green");
         }
-    } 
+    }
     if(!found){
         $(".tBox").css("background-color","red");
-    }   
+    }
 });
 
 
 $(".container").click(function(event) {//Should be mouseup when building the rest - HH
             // console.log("mouseup on " +  $(d).css("left") + " " + $(d).css("top"));
-    
+
     var relX = event.pageX - $(".container").offset().left;
-    var relY = event.pageY - $(".container").offset().top;   
+    var relY = event.pageY - $(".container").offset().top;
     //console.log("relX : " + relX + " Y:  " + relY);
 
     for(var i=0; i < gameBoard.length; i++){
@@ -357,15 +322,15 @@ $(".tileNatural").draggable({
     stop: function(event, ui) {
         clickedTile = this;
         // Show dropped position.
-        
+
         var mouseX = event.pageX - $(".container").offset().left;
-        var mouseY = event.pageY - $(".container").offset().top; 
+        var mouseY = event.pageY - $(".container").offset().top;
 
         //var Stoppos = $(this).offset();
         //console.log("STOP: \nLeft: "+ Stoppos.left + "\nTop: " + Stoppos.top);
         //console.log("End Mouse: \nLeft: "+ event.pageX + "\nTop: " + event.pageY); //event.pageY - mouse y
         //console.log("Container PosX: " + $(".container").css("left") + " " + "Container Width: " + $(".container").css("width"));
-        //$(".container").css("width") is subbing for 
+        //$(".container").css("width") is subbing for
         //console.log("relX : " + mouseX + " Y:  " + mouseY + "Left Container: " + parseInt($(".container").css("left")) + " Top Container: " + parseInt($(".container").css("top")) + " Width: " + parseInt($(".container").css("width")));
         //console.log("boardWidth " + boardWidth)
 
@@ -375,7 +340,7 @@ $(".tileNatural").draggable({
 
             //iterate over .gameSpaces
             $( ".gameSpaces" ).each(function( index ) {
-                var gameSpace = this; 
+                var gameSpace = this;
                 //console.log(index + ": " + $( this ).text() );
                 if(isIntersectingsquare(mouseX, mouseY, parseInt($(gameSpace).css("left")),  parseInt($(".container").css("top")) , parseInt($(".container").css("width")))){
 
@@ -383,14 +348,14 @@ $(".tileNatural").draggable({
                 //see which one is in question with isIntersecting(mouseX, mouseY, $(gameSpace).css("left"), top, width )
                 //if in question
                     //Determine what is happening in this tile
-                        //if nothing 
-                            //place tile by doing....... 
+                        //if nothing
+                            //place tile by doing.......
 
-                        //if something determine what and send home 
+                        //if something determine what and send home
 
 
             });
-            
+
 
 
             console.log("In Game Board");
@@ -408,22 +373,26 @@ $(".tileNatural").draggable({
     }
 });
 
+$('.gameSpaces').droppable({
+    accept: '.tileNatural'
+});
+
 //Determine which tile has been selected
 // $(".tileNatural").click(function(event) {
 //             // console.log("mouseup on " +  $(d).css("left") + " " + $(d).css("top"));
-    
-//     //console.log("Tile Area Clicked"); 
-//     //console.log("client X: " + event.clientX + " Y:  " + event.clientY);  
+
+//     //console.log("Tile Area Clicked");
+//     //console.log("client X: " + event.clientX + " Y:  " + event.clientY);
 //     // var relX = event.pageX - $(".tileArea").offset().left;
-//     // var relY = event.pageY - $(".tileArea").offset().top;   
-    
+//     // var relY = event.pageY - $(".tileArea").offset().top;
+
 //     //console.log("relX : " + relX + " Y:  " + relY);
 //     console.log("scale value: " + $(this).css("transform")[7]);
 
 //     if($(this).css("transform")[7] == 2){return false;}
 
-//     var activeX = Math.round($(this).position().left); 
-//     var activeY = Math.round($(this).position().top); 
+//     var activeX = Math.round($(this).position().left);
+//     var activeY = Math.round($(this).position().top);
 //     var memId= getId("tile", activeX, activeY);
 
 //    //Handle Formating first so the sizes are right when comparing next input
@@ -444,7 +413,7 @@ $(".tileNatural").draggable({
 //         }
 //     }
 
- 
+
 //         // for(var i = 0; i < tileList.length; i++){
 //         // if(i != memId){
 //         //     $(this).css("transform", "scale(1,1)");
@@ -455,8 +424,8 @@ $(".tileNatural").draggable({
 
 
 
-    
-    
+
+
 // });
 //End Event Listners
 //End Event Listners
